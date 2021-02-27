@@ -5,4 +5,4 @@ X. He, Y. Deng, L. Fang and Q. Peng, "Multi-Modal Retinal Image Classification w
 
 If you have any questions, please contact us, E-mail: leyuan_fang@hnu.edu.cn or xx_h@hnu.edu.cn
 
-Requirements: pytorch 1.2.0, oython 3.7
+Requirements: pytorch 1.2.0, python 3.7
