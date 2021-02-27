@@ -3,7 +3,6 @@ import argparse
 import os
 import os.path as osp
 import torch
-import torch.nn as nn 
 import torch.optim as optim
 from torch.optim import lr_scheduler
 from torchnet.meter import ClassErrorMeter
@@ -12,8 +11,8 @@ import torch.backends.cudnn as cudnn
 
 
 from model import MSA_subnet, RGA_subnet
-from trainer.trainer import Trainer
-from data.Seg_dataset import DACNNlist
+from trainer import Trainer
+from data.dataset import datalist
 from data import data_transforms as dt
 from utils.logger import Logger
 from utils import FocalLoss
@@ -85,8 +84,8 @@ def main(args):
               dt.ToTensor(),
               normalize])
 
-    train_dataset = DACNNlist(args.data_dir, args.phase, 'train', dt.Compose(t_OCT),dt.Compose(t_fundus),dt.Compose(t_ROI), list_dir=args.list_dir, cross=args.cross)
-    val_dataset = DACNNlist(args.data_dir, args.phase, 'val', dt.Compose(t_OCT),dt.Compose(t_fundus),dt.Compose(t_ROI), list_dir=args.list_dir, cross=args.cross)
+    train_dataset = datalist(args.data_dir, args.phase, 'train', dt.Compose(t_OCT),dt.Compose(t_fundus),dt.Compose(t_ROI), list_dir=args.list_dir, cross=args.cross)
+    val_dataset = datalist(args.data_dir, args.phase, 'val', dt.Compose(t_OCT),dt.Compose(t_fundus),dt.Compose(t_ROI), list_dir=args.list_dir, cross=args.cross)
     train_dataloaders = torch.utils.data.DataLoader(train_dataset, batch_size=args.batch_size,
                                                    shuffle=True, num_workers=args.workers, pin_memory=True,
                                                    drop_last=True)
